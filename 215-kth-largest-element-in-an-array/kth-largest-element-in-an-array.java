@@ -5,7 +5,6 @@ class Solution {
         for (int num : nums) {
             minHeap.add(num);
             
-            // If the heap size exceeds k, remove the smallest element.
             if (minHeap.size() > k) {
                 minHeap.poll();
             }
