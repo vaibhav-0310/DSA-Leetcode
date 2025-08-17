@@ -1,30 +1,39 @@
- class Solution {
-public void setZeroes(int[][] matrix) {
-    boolean fr = false,fc = false;
-    for(int i = 0; i < matrix.length; i++) {
-        for(int j = 0; j < matrix[0].length; j++) {
-            if(matrix[i][j] == 0) {
-                if(i == 0) fr = true;
-                if(j == 0) fc = true;
-                matrix[0][j] = 0;
-                matrix[i][0] = 0;
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        if (matrix == null || matrix.length == 0) {
+            return;
+        }
+
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+
+        // Use a List to store the coordinates of all original zeros.
+        // This is better than a fixed-size array.
+        List<int[]> zeroCoordinates = new ArrayList<>();
+
+        // PASS 1: Find all original zeros and store their locations.
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (matrix[i][j] == 0) {
+                    zeroCoordinates.add(new int[]{i, j});
+                }
+            }
+        }
+
+        // PASS 2: Iterate through the stored coordinates and set rows/columns to zero.
+        for (int[] coords : zeroCoordinates) {
+            int r = coords[0];
+            int c = coords[1];
+
+            // Set entire row 'r' to zero
+            for (int j = 0; j < cols; j++) {
+                matrix[r][j] = 0;
+            }
+
+            // Set entire column 'c' to zero
+            for (int i = 0; i < rows; i++) {
+                matrix[i][c] = 0;
             }
         }
     }
-    for(int i = 1; i < matrix.length; i++) {
-        for(int j = 1; j < matrix[0].length; j++) {
-            if(matrix[i][0] == 0 || matrix[0][j] == 0) {
-                matrix[i][j] = 0;
-        }}
-    }
-    if(fr) {
-        for(int j = 0; j < matrix[0].length; j++) {
-            matrix[0][j] = 0;
-        }
-    }
-    if(fc) {
-        for(int i = 0; i < matrix.length; i++) {
-            matrix[i][0] = 0;
-        }
-    }
-}}  
+}
